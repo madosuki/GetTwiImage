@@ -43,7 +43,7 @@ type Help (n) as self =
            printfn "
 
         Example:
-            GetTwiImages.exe --savedir DirectoryName --list TextfilePath
+            GetTwiImages.exe --savedir DirectoryName --list TextfilePath Or twimg Url
 
             --savedir This is Directory to save files. Or not appoint Case is substitute MyPicutres Dir.
         
