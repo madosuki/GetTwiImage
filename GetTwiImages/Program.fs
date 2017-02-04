@@ -24,16 +24,27 @@ let (|Pattern|_|) regex str =
 
 let checkImage url =
     match url with
-    | Pattern "(?!.*/)(\w*\.jpg|png)" url -> url
+    | Pattern "(?!.*/)(\S*\.(jpg|png))" url -> url
     | _ -> "None"
 
 let dlImage url dir =
-    printfn "Starting Download Sequence"
     let savefilename = checkImage url
-    let wc = new WebClient()
-    let saveurl = url + ":orig"
-    let savedir = dir + "\\" + savefilename
-    wc.DownloadFile(saveurl, savedir)
+    if savefilename <> "None" then
+        let wc = new WebClient()
+        let saveurl = url + ":orig"
+        let savedir = dir + "\\" + savefilename
+        printfn ""
+        printfn "Starting Download Sequence: %s" url
+        try
+            wc.DownloadFile(saveurl, savedir)
+            printfn ""
+            printfn "Saved %s" savedir
+            printfn "Done."
+        with
+        | :? WebException as ex -> printfn "%s" (ex.Message)
+
+    else
+        printfn "This URL is not twimg."
 
 type Help (n) as self =
     do
@@ -43,7 +54,7 @@ type Help (n) as self =
            printfn "
 
         Example:
-            GetTwiImages.exe --savedir DirectoryName --list TextfilePath Or twimg Url
+            GetTwiImages.exe --savedir DirectoryName --list TextfilePath Or twimg Url, In that case don't use --list option
 
             --savedir This is Directory to save files. Or not appoint Case is substitute MyPicutres Dir.
         
