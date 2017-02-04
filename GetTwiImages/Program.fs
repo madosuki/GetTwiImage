@@ -25,7 +25,7 @@ let (|Pattern|_|) regex str =
 
 let checkImage url =
     match url with
-    | Pattern "(?!.*/)(\S*\.(jpg|png))" url -> url
+    | Pattern "(?!.*/)(\w*\S*\.(jpg|png))" url -> url
     | _ -> "None"
 
 let dlImage url dir =
