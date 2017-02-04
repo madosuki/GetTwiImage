@@ -8,6 +8,7 @@ let fileList filepath =
         use sr = new StreamReader(filepath:string)
         while not sr.EndOfStream do
             yield sr.ReadLine()
+        sr.Close()
     }
 
 let addList path =
