@@ -25,7 +25,7 @@ let (|Pattern|_|) regex str =
 
 let checkImage url =
     match url with
-    | Pattern "(?!.*/)(\w*\S*\.(jpg|png))" url -> url
+    | Pattern "(?!.*/)(\S*\.(jpg|png))" url -> url
     | _ -> "None"
 
 let dlImage url dir =
@@ -33,7 +33,7 @@ let dlImage url dir =
     if savefilename <> "None" then
         let wc = new WebClient()
         let saveurl = url + ":orig"
-        let savedir = dir + "\\" + savefilename
+        let savedir = dir + "/" + savefilename
         printfn ""
         printfn "Starting Download Sequence: %s" url
         try
