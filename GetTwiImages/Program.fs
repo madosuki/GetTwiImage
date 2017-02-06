@@ -22,18 +22,29 @@ let (|Pattern|_|) regex str =
     else
         None
 
-
 let checkImage url =
     match url with
     | Pattern "(?!.*/)(\S*\.(jpg|png))" url -> url
     | _ -> "None"
 
+let (|ArgsTest|_|) str =
+    if checkImage(str) <> "None" then
+        Some(str)
+    else
+        None
+
 let dlImage url dir =
+    printfn "%s" url
     let savefilename = checkImage url
     if savefilename <> "None" then
         let wc = new WebClient()
+        let mutable savedir = ""
         let saveurl = url + ":orig"
-        let savedir = dir + "/" + savefilename
+        let tmpdir:string = dir
+        if tmpdir.EndsWith("/") then
+            savedir <- tmpdir + savefilename
+        else
+            savedir <- tmpdir + "/" + savefilename
         printfn ""
         printfn "Starting Download Sequence: %s" url
         try
@@ -60,6 +71,12 @@ type Help (n) as self =
             --savedir This is Directory to save files. Or not appoint Case is substitute MyPicutres Dir.
         
             --list This appoint Text file with download list written."
+
+ type FiledArgs (n) =
+     do
+     if n = None then
+         let h = new Help(1)
+         System.Environment.Exit(0)
 
 
 [<EntryPoint>]
@@ -91,11 +108,11 @@ let main argv =
 
         elif listtxt = "" then
             for b in argv do
-                if checkImage(b) = "None" then
-                    let h = new Help(1)
-                    System.Environment.Exit(0)
-                else
-                    dlImage b savedir
+                match b with
+                | "--savedir" -> ()
+                | "--list" -> ()
+                | ArgsTest b -> dlImage b savedir
+                | _ -> ()
                     
     else
         let h = new Help(1)
