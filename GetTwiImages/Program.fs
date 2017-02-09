@@ -34,7 +34,6 @@ let (|ArgsTest|_|) str =
         None
 
 let dlImage url dir =
-    printfn "%s" url
     let savefilename = checkImage url
     if savefilename <> "None" then
         let wc = new WebClient()
