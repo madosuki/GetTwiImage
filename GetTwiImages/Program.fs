@@ -64,12 +64,12 @@ type Help (n) as self =
         if n = 1 then
            printfn "
 
-        Example:
-            GetTwiImages.exe --savedir DirectoryName --list TextfilePath Or twimg Url, In that case don't use --list option
+Example:
+       GetTwiImages.exe --savedir DirectoryName --list TextfilePath Or twimg Url, In that case don't use --list option
 
-            --savedir This is Directory to save files. Or not appoint Case is substitute MyPicutres Dir.
+       --savedir This is Directory to save files. Or not appoint Case is substitute MyPicutres Dir.
         
-            --list This appoint Text file with download list written."
+       --list This appoint Text file with download list written."
 
  type FiledArgs (n) =
      do
