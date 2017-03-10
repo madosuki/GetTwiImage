@@ -108,8 +108,6 @@ let main argv =
         elif listtxt = "" then
             for b in argv do
                 match b with
-                | "--savedir" -> ()
-                | "--list" -> ()
                 | ArgsTest b -> dlImage b savedir
                 | _ -> ()
                     
